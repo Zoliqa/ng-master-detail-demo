@@ -19,6 +19,7 @@ namespace MasterDetailApp
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureLogging(logging => logging.AddConsole())
                 .UseStartup<Startup>();
     }
 }

@@ -12,7 +12,7 @@ export class ArticlesComponent {
   public articles: Article[];
   public numberOfPages: number[];
   public selectedPage: number = 1;
-  public searchTerm: string;
+  public searchTerm: string = '';
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.getArticles();
@@ -74,6 +74,7 @@ export class ArticlesComponent {
     };
 
     this.http.delete(this.baseUrl + 'api/Articles', options).subscribe(result => {
+      this.getArticles();
     }, error => console.error(error));
   }
 }
