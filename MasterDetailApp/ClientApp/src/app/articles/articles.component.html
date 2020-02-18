@@ -2,9 +2,16 @@
 
 <p *ngIf="!articles"><em>Loading...</em></p>
 
+<div>
+  <label>Search articles</label>
+  <input type="text" (input)="onSearchTermChange()" [(ngModel)]="searchTerm" />
+</div>
+
 <table class='table table-striped' *ngIf="articles">
   <thead>
     <tr>
+      <th></th>
+      <th></th>
       <th>Id</th>
       <th>Title</th>
       <th>Description</th>
@@ -14,6 +21,8 @@
   </thead>
   <tbody>
     <tr *ngFor="let article of articles">
+      <td><button (click)="edit(article)" [routerLink]='["edit-article", article.id]'>Edit</button></td>
+      <td><button (click)="delete(article)">Delete</button></td>
       <td>{{ article.id }}</td>
       <td>{{ article.title }}</td>
       <td>{{ article.description }}</td>
@@ -24,9 +33,11 @@
 </table>
 
 <div>
+  <button (click)="selectPreviousPage()" [disabled]="selectedPage === 1">Previous</button>
   <label>Page</label>
   <select [(ngModel)]="selectedPage" (ngModelChange)="onPageChange($event)">
     <option *ngFor="let page of numberOfPages" [ngValue]="page">{{ page }}</option>
   </select>
+  <button (click)="selectNextPage()" [disabled]="!numberOfPages || numberOfPages.length === 0 || selectedPage === this.numberOfPages.slice(-1)[0]">Next</button>
 </div>
 

@@ -11,8 +11,8 @@ namespace MasterDetailApp.Controllers
     {
         public const int PageSize = 5;
 
-        [HttpGet("[action]")]
-        public ListArticles List(int pageNumber = 1)
+        [HttpGet]
+        public ListArticles List(int pageNumber, string searchTerm)
         {
             var from = (pageNumber - 1) * PageSize;
 
@@ -32,6 +32,11 @@ namespace MasterDetailApp.Controllers
             };
 
             return result;
+        }
+
+        [HttpDelete]
+        public void Delete(int id)
+        {
         }
 
         public class Article
