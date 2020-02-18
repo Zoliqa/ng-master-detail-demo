@@ -1,0 +1,32 @@
+<h1>Articles</h1>
+
+<p *ngIf="!articles"><em>Loading...</em></p>
+
+<table class='table table-striped' *ngIf="articles">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>CategoryId</th>
+      <th>CreatedDateTime</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let article of articles">
+      <td>{{ article.id }}</td>
+      <td>{{ article.title }}</td>
+      <td>{{ article.description }}</td>
+      <td>{{ article.categoryId }}</td>
+      <td>{{ article.createdDateTime }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div>
+  <label>Page</label>
+  <select [(ngModel)]="selectedPage" (ngModelChange)="onPageChange($event)">
+    <option *ngFor="let page of numberOfPages" [ngValue]="page">{{ page }}</option>
+  </select>
+</div>
+
