@@ -1,0 +1,25 @@
+<h1>Categories</h1>
+
+<p *ngIf="!categories"><em>Loading...</em></p>
+
+<button [routerLink]='["/edit-category", 0]'>Add new category</button>
+
+<table class='table table-striped' *ngIf="categories">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>Id</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let category of categories">
+      <td><button [routerLink]='["/edit-category", category.id]'>Edit</button></td>
+      <td><button (click)="delete(category)">Delete</button></td>
+      <td>{{ category.id }}</td>
+      <td>{{ category.name }}</td>
+    </tr>
+  </tbody>
+</table>
+

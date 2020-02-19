@@ -2,6 +2,8 @@
 
 <p *ngIf="!articles"><em>Loading...</em></p>
 
+<button [routerLink]='["edit-article", 0]'>Add new article</button>
+
 <div>
   <label>Search articles</label>
   <input type="text" (input)="onSearchTermChange()" [(ngModel)]="searchTerm" />
@@ -15,19 +17,19 @@
       <th>Id</th>
       <th>Title</th>
       <th>Description</th>
-      <th>CategoryId</th>
+      <th>Category</th>
       <th>CreatedDateTime</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let article of articles">
-      <td><button (click)="edit(article)" [routerLink]='["edit-article", article.id]'>Edit</button></td>
+      <td><button [routerLink]='["edit-article", article.id]'>Edit</button></td>
       <td><button (click)="delete(article)">Delete</button></td>
       <td>{{ article.id }}</td>
       <td>{{ article.title }}</td>
       <td>{{ article.description }}</td>
-      <td>{{ article.categoryId }}</td>
-      <td>{{ article.createdDateTime }}</td>
+      <td>{{ categories[article.categoryId] && categories[article.categoryId].name }}</td>
+      <td>{{ article.createdDateTime | date: 'short' }}</td>
     </tr>
   </tbody>
 </table>

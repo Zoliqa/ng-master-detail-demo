@@ -4,28 +4,39 @@ import { Article } from '../article';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Location } from '@angular/common';
+import { CategoryService } from '../services/category.service';
 
 @Component({
   selector: 'edit-article',
   templateUrl: './edit-article.component.html',
-  styleUrls: ['./edit-article.component.css']
+  styleUrls: ['./edit-article.component.css'],
+  providers: [CategoryService]
 })
 export class EditArticleComponent implements OnInit, OnDestroy {
-  article: Article;
-  categories: Category[];
+
+  public article: Article;
+  public categories: Category[];
   private sub: Subscription;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private router: Router, private location: Location) {
-    this.http.get<Category[]>(this.baseUrl + 'api/Category/List').subscribe(categories => {
-      this.categories = categories;
-    }, error => console.error(error));
+  constructor(private route: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private router: Router, private location: Location, private categoryService: CategoryService) {
   }
 
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      let id = <number>params['id'];
+    this.categoryService.getCategories().subscribe(categories => {
+      this.categories = categories
+    }, error => console.log(error));
 
-      this.getArticle(id);
+    this.sub = this.route.params.subscribe(params => {
+      let id = +params['id'];
+
+      if (id !== 0) {
+        this.getArticle(id);
+      }
+      else {
+        this.article = {
+          id: 0
+        } as Article;
+      }
     });
   }
 
@@ -33,7 +44,7 @@ export class EditArticleComponent implements OnInit, OnDestroy {
     var params = new HttpParams()
       .set('id', id.toString());
 
-    this.http.get<Article>(this.baseUrl + 'api/Articles/GetArticle', { params: params }).subscribe(article => {
+    this.http.get<Article>(this.baseUrl + 'api/Article/GetArticle', { params: params }).subscribe(article => {
       this.article = article;
     }, error => console.error(error));
   }
@@ -45,10 +56,20 @@ export class EditArticleComponent implements OnInit, OnDestroy {
       })
     };
 
-    this.http.post(this.baseUrl + 'api/Articles', this.article, options).subscribe(article => {
-      //this.router.navigate(['']);
-      this.location.back();
-    }, error => console.error(error));
+    if (this.article.id === 0) {
+      this.http.put(this.baseUrl + 'api/Article', this.article, options).subscribe(article => {
+        this.router.navigate([''], { queryParams: { searchTerm: this.article.title } });
+      }, error => console.error(error));
+    }
+    else {
+      this.http.post(this.baseUrl + 'api/Article', this.article, options).subscribe(article => {
+        this.location.back();
+      }, error => console.error(error));
+    }
+  }
+
+  cancel() {
+    this.location.back();
   }
 
   ngOnDestroy(): void {
@@ -56,7 +77,4 @@ export class EditArticleComponent implements OnInit, OnDestroy {
   }
 }
 
-interface Category {
-  id: number;
-  name: string;
-}
+

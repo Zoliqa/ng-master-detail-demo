@@ -9,13 +9,13 @@ using Microsoft.Extensions.Logging;
 namespace MasterDetailApp.Controllers
 {
     [Route("api/[controller]")]
-    public class ArticlesController : Controller
+    public class ArticleController : Controller
     {
         public const int PageSize = 5;
         private MasterDetailContext _context;
         private readonly ILogger _logger;
 
-        public ArticlesController(MasterDetailContext context, ILogger<ArticlesController> logger)
+        public ArticleController(MasterDetailContext context, ILogger<ArticleController> logger)
         {
             _context = context;
 
@@ -86,6 +86,25 @@ namespace MasterDetailApp.Controllers
                 _context.Attach(a);
 
                 _context.Articles.Update(a);
+
+                _context.SaveChanges();
+
+                return Ok(a);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+        }
+
+        [HttpPut]
+        public IActionResult Insert([FromBody]Article a)
+        {
+            try
+            {
+                a.CreatedDateTime = DateTime.Now;
+
+                _context.Articles.Add(a);
 
                 _context.SaveChanges();
 

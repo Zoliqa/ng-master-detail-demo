@@ -11,6 +11,8 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { ArticlesComponent } from './articles/articles.component';
 import { EditArticleComponent } from './edit-article/edit-article.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { EditCategoryComponent } from './edit-category/edit-category.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { EditArticleComponent } from './edit-article/edit-article.component';
     CounterComponent,
     FetchDataComponent,
     ArticlesComponent,
-    EditArticleComponent
+    EditArticleComponent,
+    CategoriesComponent,
+    EditCategoryComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -29,6 +33,8 @@ import { EditArticleComponent } from './edit-article/edit-article.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'edit-article/:id', component: EditArticleComponent, pathMatch: 'full' },
+      { path: 'categories', component: CategoriesComponent, pathMatch: 'full' },
+      { path: 'edit-category/:id', component: EditCategoryComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
     ])

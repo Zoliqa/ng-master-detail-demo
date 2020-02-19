@@ -3,6 +3,7 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Article } from '../article';
 import { ListArticles } from '../list-articles';
 import { Router, ActivatedRoute } from '@angular/router';
+import { CategoryService } from '../services/category.service';
 
 @Component({
   selector: 'articles',
@@ -10,28 +11,40 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./articles.component.css']
 })
 export class ArticlesComponent implements OnInit {
-    
+
+  public categories: { [id: string]: Category } = {};
   public articles: Article[];
   public numberOfPages: number[];
   public selectedPage: number = 1;
   public searchTerm: string = '';
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private router: Router, private route: ActivatedRoute) {
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private router: Router, private route: ActivatedRoute, private categoryService: CategoryService) {
   }
 
   ngOnInit(): void {
     let page = this.route.snapshot.queryParams['page'];
+    let searchTerm = this.route.snapshot.queryParams['searchTerm'];
 
     if (page) {
       this.selectedPage = +page;
     }
 
-    this.getArticles();
+    if (searchTerm) {
+      this.searchTerm = searchTerm;
+    }
+
+    this.categoryService.getCategories().subscribe(categories => {
+      for (let category of categories) {
+        this.categories[category.id] = category;
+      }
+
+      this.getArticles();
+    }, error => console.log(error));
   }
 
   onPageChange(page) {
     this.selectedPage = page;
-    this.updatePageQueryString();
+    this.updateQueryString();
 
     this.getArticles();
   }
@@ -41,13 +54,13 @@ export class ArticlesComponent implements OnInit {
       .set('pageNumber', this.selectedPage.toString())
       .set('searchTerm', this.searchTerm);
 
-    this.http.get<ListArticles>(this.baseUrl + 'api/Articles/List', { params: params }).subscribe(result => {
+    this.http.get<ListArticles>(this.baseUrl + 'api/Article/List', { params: params }).subscribe(result => {
       this.articles = result.articles;
       this.numberOfPages = Array.from(Array(result.numberOfPages).keys()).map(x => x + 1);
 
       if (this.selectedPage > this.numberOfPages.length) {
         this.selectedPage--;
-        this.updatePageQueryString();
+        this.updateQueryString();
 
         this.getArticles();
       }
@@ -57,7 +70,7 @@ export class ArticlesComponent implements OnInit {
   selectPreviousPage() {
     if (this.selectedPage > 1) {
       this.selectedPage--;
-      this.updatePageQueryString();
+      this.updateQueryString();
 
       this.getArticles();
     }
@@ -66,15 +79,15 @@ export class ArticlesComponent implements OnInit {
   selectNextPage() {
     if (this.selectedPage < this.numberOfPages.slice(-1)[0]) {
       this.selectedPage++;
-      this.updatePageQueryString();
+      this.updateQueryString();
       
       this.getArticles();
     }
   }
 
-  private updatePageQueryString() {
+  private updateQueryString() {
     const urlTree = this.router.createUrlTree([], {
-      queryParams: { page: this.selectedPage },
+      queryParams: { page: this.selectedPage, searchTerm: this.searchTerm },
       queryParamsHandling: "merge",
       preserveFragment: true
     });
@@ -83,16 +96,12 @@ export class ArticlesComponent implements OnInit {
   }
 
   onSearchTermChange() {
-    console.log(this.searchTerm);
+    this.updateQueryString();
 
     this.selectedPage = 1;
-    this.updatePageQueryString();
+    this.updateQueryString();
 
     this.getArticles();
-  }
-
-  edit(article) {
-    console.log('edit');
   }
 
   delete(article) {
@@ -105,7 +114,7 @@ export class ArticlesComponent implements OnInit {
       }
     };
 
-    this.http.delete(this.baseUrl + 'api/Articles', options).subscribe(result => {
+    this.http.delete(this.baseUrl + 'api/Article', options).subscribe(result => {
       this.getArticles();
     }, error => alert(`Error occurred deleting article ${ article.id }`));
   }
