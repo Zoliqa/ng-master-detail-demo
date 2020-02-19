@@ -74,6 +74,8 @@ export class ArticlesComponent implements OnInit {
 
       this.getArticles();
     }
+
+    return false;
   }
 
   selectNextPage() {
@@ -83,6 +85,8 @@ export class ArticlesComponent implements OnInit {
       
       this.getArticles();
     }
+
+    return false;
   }
 
   private updateQueryString() {

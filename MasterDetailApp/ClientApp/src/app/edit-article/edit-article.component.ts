@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Location } from '@angular/common';
 import { CategoryService } from '../services/category.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'edit-article',
@@ -14,6 +15,7 @@ import { CategoryService } from '../services/category.service';
 })
 export class EditArticleComponent implements OnInit, OnDestroy {
 
+  public isValidated: boolean = false;
   public article: Article;
   public categories: Category[];
   private sub: Subscription;
@@ -49,7 +51,13 @@ export class EditArticleComponent implements OnInit, OnDestroy {
     }, error => console.error(error));
   }
 
-  save() {
+  onSubmit(form: NgForm) {
+    this.isValidated = true;
+
+    if (form.invalid) {
+      return;
+    }
+
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

@@ -2,7 +2,7 @@
 
 <p *ngIf="!articles"><em>Loading...</em></p>
 
-<button [routerLink]='["edit-article", 0]'>Add new article</button>
+<a class="nav-link" [routerLink]='["edit-article", 0]'>Add new article</a>
 
 <div>
   <label>Search articles</label>
@@ -23,8 +23,8 @@
   </thead>
   <tbody>
     <tr *ngFor="let article of articles">
-      <td><button [routerLink]='["edit-article", article.id]'>Edit</button></td>
-      <td><button (click)="delete(article)">Delete</button></td>
+      <td><a class="nav-link" [routerLink]='["edit-article", article.id]'>Edit</a></td>
+      <td><a class="nav-link" href="#" (click)="delete(article)">Delete</a></td>
       <td>{{ article.id }}</td>
       <td>{{ article.title }}</td>
       <td>{{ article.description }}</td>
@@ -35,11 +35,11 @@
 </table>
 
 <div>
-  <button (click)="selectPreviousPage()" [disabled]="selectedPage === 1">Previous</button>
+  <a class="nav-link d-inline" href="#" (click)="selectPreviousPage()" [class.disabled]="selectedPage === 1">Previous</a>
   <label>Page</label>
   <select [(ngModel)]="selectedPage" (ngModelChange)="onPageChange($event)">
     <option *ngFor="let page of numberOfPages" [ngValue]="page">{{ page }}</option>
   </select>
-  <button (click)="selectNextPage()" [disabled]="!numberOfPages || numberOfPages.length === 0 || selectedPage === this.numberOfPages.slice(-1)[0]">Next</button>
+  <a class="nav-link d-inline" href="#" (click)="selectNextPage()" [class.disabled]="!numberOfPages || numberOfPages.length === 0 || selectedPage === this.numberOfPages.slice(-1)[0]">Next</a>
 </div>
 

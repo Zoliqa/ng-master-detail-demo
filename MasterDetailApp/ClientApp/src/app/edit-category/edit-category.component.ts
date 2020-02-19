@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'edit-category',
@@ -11,6 +12,7 @@ import { Subscription } from 'rxjs';
 })
 export class EditCategoryComponent implements OnInit, OnDestroy {
 
+  public isValidated: boolean = false;
   public category: Category;
   private sub: Subscription;
 
@@ -41,7 +43,13 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
     }, error => console.error(error));
   }
 
-  save() {
+  onSubmit(form: NgForm) {
+    this.isValidated = true;
+
+    if (form.invalid) {
+      return;
+    }
+
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
