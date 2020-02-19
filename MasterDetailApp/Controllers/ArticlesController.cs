@@ -22,7 +22,7 @@ namespace MasterDetailApp.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet("[action]")]
         public ListArticles List(int pageNumber, string searchTerm)
         {
             var from = (pageNumber - 1) * PageSize;
@@ -51,23 +51,50 @@ namespace MasterDetailApp.Controllers
             return result;
         }
 
-        [HttpDelete]
-        public void Delete([FromBody]int id)
+        [HttpGet("[action]")]
+        public Article GetArticle(int id)
         {
-            _logger.LogDebug("id " + id);
+            var article = _context.Articles.SingleOrDefault(a => a.Id == id);
 
-            var article = _context.Articles.Find(id);
+            return article;
+        }
 
-            if (article != null)
+        [HttpDelete]
+        public IActionResult Delete([FromBody]Article a)
+        {
+            try
             {
-                _context.Articles.Remove(article);
+                _context.Attach(a);
+
+                _context.Articles.Remove(a);
 
                 _context.SaveChanges();
 
-                //return Ok(id);
+                return Ok(a.Id);
             }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+        }
 
-            //return NotFound(id);
+        [HttpPost]
+        public IActionResult Update([FromBody]Article a)
+        {
+            try
+            {
+                _context.Attach(a);
+
+                _context.Articles.Update(a);
+
+                _context.SaveChanges();
+
+                return Ok(a);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         public class ListArticles
