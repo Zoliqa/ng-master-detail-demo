@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MasterDetailApp.EF.Entities;
+using MasterDetailApp.EF.Utility;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,25 +43,5 @@ namespace MasterDetailApp.EF
 
             modelBuilder.Entity<Article>().HasData(articles);
         }
-    }
-
-    public class Article
-    {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public int CategoryId { get; set; }
-        public DateTime CreatedDateTime { get; set; }
-
-        public Category Category { get; set; }
-    }
-
-    public class Category
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public DateTime CreatedDateTime { get; set; }
-
-        public List<Article> Articles { get; set; }
     }
 }
