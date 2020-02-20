@@ -6,7 +6,7 @@
     <label for="description">Title:</label>
     <input #title="ngModel" name="title" type="text" class="form-control" placeholder="Title" id="title" [(ngModel)]="article.title" required>
 
-    <div *ngIf="isValidated && title.invalid" class="alert alert-danger">
+    <div *ngIf="isValidated && title.invalid" class="alert alert-danger m-2">
       Title is required.
     </div>
   </div>
@@ -14,7 +14,7 @@
     <label for="description">Description</label>
     <input #description="ngModel" name="description" type="text" class="form-control" placeholder="Description" id="description" [(ngModel)]="article.description" required>
 
-    <div *ngIf="isValidated && description.invalid" class="alert alert-danger">
+    <div *ngIf="isValidated && description.invalid" class="alert alert-danger m-2">
       Description is required.
     </div>
   </div>
@@ -24,7 +24,7 @@
       <option *ngFor="let category of categories" [ngValue]="category.id">{{ category.name }}</option>
     </select>
 
-    <div *ngIf="isValidated && categoryId.invalid" class="alert alert-danger">
+    <div *ngIf="isValidated && categoryId.invalid" class="alert alert-danger m-2">
       Category is required.
     </div>
   </div>

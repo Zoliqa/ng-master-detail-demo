@@ -6,7 +6,7 @@
     <label for="name">Name:</label>
     <input #name="ngModel" name="name" type="text" class="form-control" placeholder="Name" id="name" [(ngModel)]="category.name" required>
 
-    <div *ngIf="isValidated && name.invalid" class="alert alert-danger">
+    <div *ngIf="isValidated && name.invalid" class="alert alert-danger m-2">
       Name is required.
     </div>
   </div>

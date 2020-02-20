@@ -26,7 +26,9 @@ export class CategoriesComponent implements OnInit {
 
     this.http.delete(this.baseUrl + 'api/Category', options).subscribe(result => {
       this.getCategories();
-    }, error => alert(`Error occurred deleting article ${ category.id }`));
+    }, error => alert(`Error occurred deleting article ${category.id}`));
+
+    return false;
   }
 
   ngOnInit(): void {

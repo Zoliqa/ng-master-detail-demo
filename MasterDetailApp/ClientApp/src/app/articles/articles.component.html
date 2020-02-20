@@ -2,10 +2,10 @@
 
 <p *ngIf="!articles"><em>Loading...</em></p>
 
-<a class="nav-link" [routerLink]='["edit-article", 0]'>Add new article</a>
+<a class="btn btn-primary btn-md m-2" [routerLink]='["edit-article", 0]'>Add new article</a>
 
 <div>
-  <label>Search articles</label>
+  <label class="m-2">Search articles</label>
   <input type="text" (input)="onSearchTermChange()" [(ngModel)]="searchTerm" />
 </div>
 
@@ -36,7 +36,7 @@
 
 <div>
   <a class="nav-link d-inline" href="#" (click)="selectPreviousPage()" [class.disabled]="selectedPage === 1">Previous</a>
-  <label>Page</label>
+  <label>Page</label> &nbsp;
   <select [(ngModel)]="selectedPage" (ngModelChange)="onPageChange($event)">
     <option *ngFor="let page of numberOfPages" [ngValue]="page">{{ page }}</option>
   </select>
