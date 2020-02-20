@@ -9,3 +9,13 @@ C:\Users\zoltan.aszalos\OneDrive - Accenture\Documents\Work\Samples\angular\ng-m
 C:\Users\zoltan.aszalos\OneDrive - Accenture\Documents\Work\Samples\angular\ng-master-detail-demo\MasterDetailApp.EF\obj\Debug\netcoreapp2.2\MasterDetailApp.EF.pdb
 C:\Users\zoltan.aszalos\OneDrive - Accenture\Documents\Work\Samples\angular\ng-master-detail-demo\MasterDetailApp.EF\bin\Debug\netcoreapp2.2\MasterDetailApp.EF.runtimeconfig.json
 C:\Users\zoltan.aszalos\OneDrive - Accenture\Documents\Work\Samples\angular\ng-master-detail-demo\MasterDetailApp.EF\bin\Debug\netcoreapp2.2\MasterDetailApp.EF.runtimeconfig.dev.json
+C:\Users\Zoliqa\Documents\Work\Samples\MasterDetailApp\MasterDetailApp.EF\bin\Debug\netcoreapp2.2\MasterDetailApp.EF.deps.json
+C:\Users\Zoliqa\Documents\Work\Samples\MasterDetailApp\MasterDetailApp.EF\bin\Debug\netcoreapp2.2\MasterDetailApp.EF.runtimeconfig.json
+C:\Users\Zoliqa\Documents\Work\Samples\MasterDetailApp\MasterDetailApp.EF\bin\Debug\netcoreapp2.2\MasterDetailApp.EF.runtimeconfig.dev.json
+C:\Users\Zoliqa\Documents\Work\Samples\MasterDetailApp\MasterDetailApp.EF\bin\Debug\netcoreapp2.2\MasterDetailApp.EF.dll
+C:\Users\Zoliqa\Documents\Work\Samples\MasterDetailApp\MasterDetailApp.EF\bin\Debug\netcoreapp2.2\MasterDetailApp.EF.pdb
+C:\Users\Zoliqa\Documents\Work\Samples\MasterDetailApp\MasterDetailApp.EF\obj\Debug\netcoreapp2.2\MasterDetailApp.EF.AssemblyInfoInputs.cache
+C:\Users\Zoliqa\Documents\Work\Samples\MasterDetailApp\MasterDetailApp.EF\obj\Debug\netcoreapp2.2\MasterDetailApp.EF.AssemblyInfo.cs
+C:\Users\Zoliqa\Documents\Work\Samples\MasterDetailApp\MasterDetailApp.EF\obj\Debug\netcoreapp2.2\MasterDetailApp.EF.dll
+C:\Users\Zoliqa\Documents\Work\Samples\MasterDetailApp\MasterDetailApp.EF\obj\Debug\netcoreapp2.2\MasterDetailApp.EF.pdb
+C:\Users\Zoliqa\Documents\Work\Samples\MasterDetailApp\MasterDetailApp.EF\obj\Debug\netcoreapp2.2\MasterDetailApp.EF.csprojAssemblyReference.cache

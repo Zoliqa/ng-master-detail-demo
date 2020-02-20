@@ -1,0 +1,10 @@
+C:\Users\Zoliqa\Documents\Work\Samples\MasterDetailApp\MasterDetailApp.EF\bin\Debug\netcoreapp2.1\MasterDetailApp.EF.deps.json
+C:\Users\Zoliqa\Documents\Work\Samples\MasterDetailApp\MasterDetailApp.EF\bin\Debug\netcoreapp2.1\MasterDetailApp.EF.runtimeconfig.json
+C:\Users\Zoliqa\Documents\Work\Samples\MasterDetailApp\MasterDetailApp.EF\bin\Debug\netcoreapp2.1\MasterDetailApp.EF.runtimeconfig.dev.json
+C:\Users\Zoliqa\Documents\Work\Samples\MasterDetailApp\MasterDetailApp.EF\bin\Debug\netcoreapp2.1\MasterDetailApp.EF.dll
+C:\Users\Zoliqa\Documents\Work\Samples\MasterDetailApp\MasterDetailApp.EF\bin\Debug\netcoreapp2.1\MasterDetailApp.EF.pdb
+C:\Users\Zoliqa\Documents\Work\Samples\MasterDetailApp\MasterDetailApp.EF\obj\Debug\netcoreapp2.1\MasterDetailApp.EF.csprojAssemblyReference.cache
+C:\Users\Zoliqa\Documents\Work\Samples\MasterDetailApp\MasterDetailApp.EF\obj\Debug\netcoreapp2.1\MasterDetailApp.EF.AssemblyInfoInputs.cache
+C:\Users\Zoliqa\Documents\Work\Samples\MasterDetailApp\MasterDetailApp.EF\obj\Debug\netcoreapp2.1\MasterDetailApp.EF.AssemblyInfo.cs
+C:\Users\Zoliqa\Documents\Work\Samples\MasterDetailApp\MasterDetailApp.EF\obj\Debug\netcoreapp2.1\MasterDetailApp.EF.dll
+C:\Users\Zoliqa\Documents\Work\Samples\MasterDetailApp\MasterDetailApp.EF\obj\Debug\netcoreapp2.1\MasterDetailApp.EF.pdb
