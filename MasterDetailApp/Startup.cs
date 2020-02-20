@@ -1,7 +1,8 @@
 using MasterDetailApp.EF;
+using MasterDetailApp.EF.Concrete;
+using MasterDetailApp.EF.Utility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +32,9 @@ namespace MasterDetailApp
             });
 
             services.AddDbContext<MasterDetailContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
+
+            services.AddScoped<IMasterDetailUnitOfWork, MasterDetailUnitOfWork>();
+            services.AddScoped<IRepositoryFactory, RepositoryFactory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

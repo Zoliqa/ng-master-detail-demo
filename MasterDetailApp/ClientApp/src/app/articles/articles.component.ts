@@ -120,6 +120,8 @@ export class ArticlesComponent implements OnInit {
 
     this.http.delete(this.baseUrl + 'api/Article', options).subscribe(result => {
       this.getArticles();
-    }, error => alert(`Error occurred deleting article ${ article.id }`));
+    }, error => alert(`Error occurred deleting article ${article.id}`));
+
+    return false;
   }
 }

@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
-using MasterDetailApp.EF;
+using MasterDetailApp.EF.Concrete;
+using MasterDetailApp.EF.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -12,40 +14,39 @@ namespace MasterDetailApp.Controllers
     public class ArticleController : Controller
     {
         public const int PageSize = 5;
-        private MasterDetailContext _context;
+        private IMasterDetailUnitOfWork _unitOfWork;
         private readonly ILogger _logger;
 
-        public ArticleController(MasterDetailContext context, ILogger<ArticleController> logger)
+        public ArticleController(IMasterDetailUnitOfWork unitOfWork, ILogger<ArticleController> logger)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
 
             _logger = logger;
         }
 
         [HttpGet("[action]")]
-        public ListArticles List(int pageNumber, string searchTerm)
+        public async Task<ListArticles> List(int pageNumber, string searchTerm)
         {
             var from = (pageNumber - 1) * PageSize;
 
-            var articles =
-                _context.Articles
-                    .Where(a =>
-                        string.IsNullOrWhiteSpace(searchTerm) ||
-                        a.Title.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase) ||
-                        a.Description.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase));
+            Expression<Func<Article, bool>> where = a =>
+                string.IsNullOrWhiteSpace(searchTerm) ||
+                a.Title.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase) ||
+                a.Description.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase);
 
-            var pagedArticles = 
-                articles
-                    .OrderBy(x => x.Id)
-                    .Skip((pageNumber - 1) * PageSize)
-                    .Take(PageSize)
-                    .ToList();
+            var articlesPaged =
+                await _unitOfWork.ArticleRepository
+                    .GetAllAsync(where,
+                        articles => articles.OrderBy(a => a.Id),
+                        from,
+                        PageSize);
 
+            var articlesCount = await _unitOfWork.ArticleRepository.CountAsync(where);
 
             var result = new ListArticles
             {
-                Articles = pagedArticles,
-                NumberOfPages = (int)Math.Ceiling((double)articles.Count() / PageSize),
+                Articles = articlesPaged,
+                NumberOfPages = (int)Math.Ceiling((double)articlesCount / PageSize),
             };
 
             return result;
@@ -54,7 +55,7 @@ namespace MasterDetailApp.Controllers
         [HttpGet("[action]")]
         public Article GetArticle(int id)
         {
-            var article = _context.Articles.SingleOrDefault(a => a.Id == id);
+            var article = _unitOfWork.ArticleRepository.GetById(id);
 
             return article;
         }
@@ -64,11 +65,9 @@ namespace MasterDetailApp.Controllers
         {
             try
             {
-                _context.Attach(a);
+                _unitOfWork.ArticleRepository.Remove(a);
 
-                _context.Articles.Remove(a);
-
-                _context.SaveChanges();
+                _unitOfWork.SaveChanges();
 
                 return Ok(a.Id);
             }
@@ -83,11 +82,9 @@ namespace MasterDetailApp.Controllers
         {
             try
             {
-                _context.Attach(a);
+                _unitOfWork.ArticleRepository.Update(a);
 
-                _context.Articles.Update(a);
-
-                _context.SaveChanges();
+                _unitOfWork.SaveChanges();
 
                 return Ok(a);
             }
@@ -104,9 +101,9 @@ namespace MasterDetailApp.Controllers
             {
                 a.CreatedDateTime = DateTime.Now;
 
-                _context.Articles.Add(a);
+                _unitOfWork.ArticleRepository.Add(a);
 
-                _context.SaveChanges();
+                _unitOfWork.SaveChanges();
 
                 return Ok(a);
             }

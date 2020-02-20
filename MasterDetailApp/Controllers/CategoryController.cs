@@ -1,21 +1,21 @@
-using MasterDetailApp.EF;
+using MasterDetailApp.EF.Concrete;
+using MasterDetailApp.EF.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MasterDetailApp.Controllers
 {
     [Route("api/[controller]")]
     public class CategoryController : Controller
     {
-        private MasterDetailContext _context;
+        private IMasterDetailUnitOfWork _unitOfWork;
         private readonly ILogger _logger;
 
-        public CategoryController(MasterDetailContext context, ILogger<CategoryController> logger)
+        public CategoryController(IMasterDetailUnitOfWork unitOfWork, ILogger<CategoryController> logger)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
 
             _logger = logger;
         }
@@ -23,13 +23,13 @@ namespace MasterDetailApp.Controllers
         [HttpGet("[action]")]
         public List<Category> List()
         {
-            return _context.Categories.ToList();
+            return _unitOfWork.CategoryRepository.GetAll();
         }
 
         [HttpGet("[action]")]
         public Category GetCategory(int id)
         {
-            var category = _context.Categories.SingleOrDefault(c => c.Id == id);
+            var category = _unitOfWork.CategoryRepository.GetById(id);
 
             return category;
         }
@@ -40,11 +40,9 @@ namespace MasterDetailApp.Controllers
         {
             try
             {
-                _context.Attach(c);
+                _unitOfWork.CategoryRepository.Update(c);
 
-                _context.Categories.Update(c);
-
-                _context.SaveChanges();
+                _unitOfWork.SaveChanges();
 
                 return Ok(c);
             }
@@ -61,9 +59,9 @@ namespace MasterDetailApp.Controllers
             {
                 c.CreatedDateTime = DateTime.Now;
 
-                _context.Categories.Add(c);
+                _unitOfWork.CategoryRepository.Add(c);
 
-                _context.SaveChanges();
+                _unitOfWork.SaveChanges();
 
                 return Ok(c);
             }
@@ -78,11 +76,9 @@ namespace MasterDetailApp.Controllers
         {
             try
             {
-                _context.Attach(c);
+                _unitOfWork.CategoryRepository.Remove(c);
 
-                _context.Categories.Remove(c);
-
-                _context.SaveChanges();
+                _unitOfWork.SaveChanges();
 
                 return Ok(c.Id);
             }
