@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Article } from '../article';
+import { Category } from '../category';
 import { ListArticles } from '../list-articles';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CategoryService } from '../services/category.service';

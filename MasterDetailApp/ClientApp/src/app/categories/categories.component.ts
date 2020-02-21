@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { CategoryService } from '../services/category.service';
+import { Category } from '../category';
 
 @Component({
   selector: 'categories',
@@ -12,6 +13,7 @@ export class CategoriesComponent implements OnInit {
   public categories: Category[];
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private categoryService: CategoryService) {
+    console.error('called');
   }
 
   delete(category) {

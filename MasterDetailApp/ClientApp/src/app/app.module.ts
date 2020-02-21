@@ -11,6 +11,7 @@ import { ArticlesComponent } from './articles/articles.component';
 import { EditArticleComponent } from './edit-article/edit-article.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { EditCategoryComponent } from './edit-category/edit-category.component';
+import { APP_BASE_HREF } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { EditCategoryComponent } from './edit-category/edit-category.component';
       { path: 'edit-category/:id', component: EditCategoryComponent, pathMatch: 'full' }
     ])
   ],
-  providers: [],
+  providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
