@@ -4,6 +4,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
+import { Category } from '../category';
 
 @Component({
   selector: 'edit-category',

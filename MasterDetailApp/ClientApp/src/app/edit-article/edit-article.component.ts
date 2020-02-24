@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Location } from '@angular/common';
 import { CategoryService } from '../services/category.service';
 import { NgForm } from '@angular/forms';
+import { Category } from '../category';
 
 @Component({
   selector: 'edit-article',

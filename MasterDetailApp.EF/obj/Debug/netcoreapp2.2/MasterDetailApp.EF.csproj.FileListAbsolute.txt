@@ -18,4 +18,3 @@ C:\Users\Zoliqa\Documents\Work\Samples\MasterDetailApp\MasterDetailApp.EF\obj\De
 C:\Users\Zoliqa\Documents\Work\Samples\MasterDetailApp\MasterDetailApp.EF\obj\Debug\netcoreapp2.2\MasterDetailApp.EF.AssemblyInfo.cs
 C:\Users\Zoliqa\Documents\Work\Samples\MasterDetailApp\MasterDetailApp.EF\obj\Debug\netcoreapp2.2\MasterDetailApp.EF.dll
 C:\Users\Zoliqa\Documents\Work\Samples\MasterDetailApp\MasterDetailApp.EF\obj\Debug\netcoreapp2.2\MasterDetailApp.EF.pdb
-C:\Users\Zoliqa\Documents\Work\Samples\MasterDetailApp\MasterDetailApp.EF\obj\Debug\netcoreapp2.2\MasterDetailApp.EF.csprojAssemblyReference.cache
