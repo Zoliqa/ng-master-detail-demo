@@ -1,5 +1,5 @@
 import { APP_BASE_HREF } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpParams } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -9,6 +9,7 @@ import { ArticlesComponent } from './articles.component';
 import { Category } from '../category';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ListArticles } from '../list-articles';
+import { Article } from '../article';
 
 describe('ArticlesComponent', () => {
   let component: ArticlesComponent;
@@ -33,7 +34,7 @@ describe('ArticlesComponent', () => {
       imports: [
         RouterModule.forRoot([]),
         FormsModule,
-        HttpClientModule,
+        //HttpClientModule,
         HttpClientTestingModule
       ]
     })
@@ -53,7 +54,7 @@ describe('ArticlesComponent', () => {
       },
       {
         id: 2,
-        name: 'c2'
+        name: 'c2'  
       }
     ];
 
@@ -75,16 +76,23 @@ describe('ArticlesComponent', () => {
   });
 
   it('should get articles', () => {
-    //const req = httpMock.expectOne(baseUrl + 'api/Article/List');
+    component.getArticles();
+
+    const reqs = httpMock.match(req => req.method === 'GET' && req.url === baseUrl + 'api/Article/List');
+    const req = reqs[reqs.length - 1];
     //expect(req.request.method).toEqual('GET');
+    expect(req.request.params.keys().length).toBe(2);
 
     var result: ListArticles = {
-      articles: [],
+      articles: [{} as Article, {} as Article],
       numberOfPages: 10
     };
 
-    //req.flush(result);
+    httpMock.verify();
 
-    //component.ngOnInit();
+    req.flush(result);
+
+    expect(component.articles).toBe(result.articles);
+    expect(component.numberOfPages.length).toBe(result.numberOfPages);
   });
 });
